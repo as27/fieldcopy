@@ -1,3 +1,23 @@
+// Package fieldcopy allows you to copy fields, which are defined via
+// a tag. The standard usecase is a big struct which is part of an API.
+// If you don't want that all the values are visible you can use fieldcopy
+// just to copy that fields you want.
+//
+// For example:
+// You read values from a DB and there are fields which just admins are
+// allowed to see. You can define that property direct on the struct.
+//
+//   type Node struct {
+//     Username string `fieldcopy:"user,admin"`
+//     Secret   string `fieldcopy:"admin"`
+//   }
+//
+// Then you copy the values from your internal variable to the one which
+// is visble.
+//
+//   internalNode := readDB()
+//   exernal := Node{}
+//   fieldcopy.Copy(&extern,internalNode,"user")
 package fieldcopy
 
 import (
@@ -8,6 +28,12 @@ import (
 
 const tagName = "fieldcopy"
 
+// Copy copies the values from src to dst. It is important that both
+// variables are the same type, otherwise just an error is returned.
+// It is also important that dst is a pointer, that the values can
+// be copied into that variable.
+//
+// Tagvalue defines the values, which are copied.
 func Copy(dst, src interface{}, tagvalue string) error {
 	vdst := reflect.ValueOf(dst).Elem()
 	vsrc := reflect.ValueOf(src)

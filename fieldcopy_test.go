@@ -62,15 +62,15 @@ func TestCopy(t *testing.T) {
 	}
 }
 
-func Example_Copy() {
+func ExampleCopy() {
 	type A struct {
-		One   string `fieldcopy:"json" json:"one,omitempty"`
-		Two   string `fieldcopy:"json" json:"two,omitempty"`
+		One   string `fieldcopy:"jsonexport" json:"one,omitempty"`
+		Two   string `fieldcopy:"jsonexport" json:"two,omitempty"`
 		MyInt int    `json:"my_int,omitempty"`
 	}
 	a := A{"one", "two", 42}
 	b := A{}
-	Copy(&b, a, "json")
+	Copy(&b, a, "jsonexport")
 	fmt.Printf("%v", b)
 	// Output: {one two 0}
 }
