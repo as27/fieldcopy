@@ -1,5 +1,7 @@
 # fieldcopy
 
+[![GoDoc](https://godoc.org/github.com/as27/fieldcopy?status.svg)](https://godoc.org/github.com/as27/fieldcopy)
+
 fieldcopy copies the values of two structs. Via the fieldcopy tag not all values are copied. 
 
 This is usefull, when you have an external API (for example in JSON) and you don't want all exported fields to be visible.
